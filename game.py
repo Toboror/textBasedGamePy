@@ -1,7 +1,58 @@
+# Difficulties so far, marked with stars for how difficult
+# How do we make the player move around the grid?** fixed: new problem, movement has to be disturbed by enter
+# Possibly make the game slow paced?
+# Create a nice display for in game inventory and stats while game is playing.
+# Consider implementing a GUI since this is so frustrating
+
+
+
 from random import randrange
 
+    # Creating graphicaldisplay of game, starting with whitespace, maybe a special symbol in future?
+class graphicalDisplay():
+    def __init__(self, player):
+        self.rows, self.cols = 41, 10
+        self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
+        self.player = player
+        self.grid[self.player.row][self.player.col] = player.playerOnMap()
+        self.previousRow, self.previousCol = 0, 0
+        self.inventory()
 
-# Create a weapon class where you can specify a weapons damage and name
+    def printGrid(self):
+        for i in range(self.cols):
+            print(*self.grid[i])
+
+    def clearGrid(self):
+        self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
+
+    def inventory(self):
+        for i in range(26, 41):
+            for j in range(0, 10):
+                if (j == 0) or (j == 9):
+                    self.grid[j][i] = "-"
+                elif (i == 26) or (i == 40): self.grid[j][i] = "-"
+        inventory = ["I", "N", "V", "E", "N", "T", "O", "R", "Y"]
+        for i in range(29, 38):
+            self.grid[1][i] = inventory[i-29]
+
+    def updatePlayerInventory(self):
+
+
+
+     def moveplayer(self, userInput):
+        self.clearGrid()
+        movement_location = self.player.movement(userInput)
+        if (movement_location is not False):
+            self.grid[movement_location[0]][movement_location[1]] = self.player.playerOnMap()
+            print(movement_location[0], movement_location[1])
+            self.previousRow, self.previousCol = movement_location[0], movement_location[1]
+        else: self.grid[self.previousRow][self.previousCol] = self.player.playerOnMap()
+
+        self.printGrid()
+
+
+
+
 class weapon:
     def __init__(self, weapon, damage, range, price):
         self.weapon_name = weapon
@@ -76,13 +127,15 @@ class ranged(weapon):
 # Person class which every person should inherit,
 class person:
 
-    def __init__(self, name, age , weight, height, health):
+    def __init__(self, name, age, weight, height, health):
         self.name = name
         self.age = age
         self.weight = weight
         self.height = height
         self.health = health
         self.alive = True
+
+
 
 
 # Pimp with an example of how a class which inherits should look maybe?
@@ -98,6 +151,8 @@ class mainCharacter(person):
         super().__init__(name, randrange(16, 30), randrange(50, 100), randrange(140, 210), 100)
         self.money = 100
         self.weapons = [melee("knife")]
+        self.col = 5
+        self.row = 5
 
     def eatCheap(self):
         if self.money >= 2:
@@ -138,9 +193,37 @@ class mainCharacter(person):
             if (self.buy(self.weapons[choice].getUpgradeCost())):
                 print("You upgraded", self.weapons[choice], "The new stats are", )
 
+    def playerOnMap(self):
+        return "*"
+
+    def movement(self, userInput):
+        if userInput == "a":
+            if (self.col - 1) > 0:
+                self.col -= 1
+                return self.row, self.col
+            return False
+        elif userInput == "w":
+            if (self.row - 1) > 0:
+                self.row -= 1
+                return self.row, self.col
+            return False
+        elif userInput == "d":
+            if (self.col + 1) < 20: # Avoiding index error, static size on grid
+                self.col += 1
+                return self.row, self.col
+            return False
+        elif userInput == "s":
+            if (self.row + 1) < 9:
+                self.row += 1
+                return self.row, self.col
+            return False
+        else:
+            return self.row, self.col
+
+
 
     # To add fight mechanic
-    def fight(self):
+ #   def fight(self):
 
 
 
@@ -154,3 +237,13 @@ class salesWoman:
 
 # Considered Dict, chose 2d list with weapon name, damage, range, fire rate and price, feel free to add more
 weapons = [["AK47", 25, 50, 50, 70], ["SCAR", 30, 50, 40, 100], ["Uzi",20, 30, 70, 100]]
+
+player = mainCharacter("Daniel")
+gui = graphicalDisplay(player)
+gui.printGrid()
+
+while (True):
+    userChoice = input("Test")
+    if userChoice == "x":
+        break
+    gui.moveplayer(userChoice)
