@@ -3,20 +3,23 @@
 # Possibly make the game slow paced?
 # Create a nice display for in game inventory and stats while game is playing.
 # Consider implementing a GUI since this is so frustrating
+# Add level class maybe?
 
 
 
 from random import randrange
 
+
     # Creating graphicaldisplay of game, starting with whitespace, maybe a special symbol in future?
 class graphicalDisplay():
     def __init__(self, player):
-        self.rows, self.cols = 41, 10
+        self.rows, self.cols = 71, 10
         self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
         self.player = player
         self.grid[self.player.row][self.player.col] = player.playerOnMap()
         self.previousRow, self.previousCol = 0, 0
         self.inventory()
+        self.level()
 
     def printGrid(self):
         for i in range(self.cols):
@@ -30,11 +33,22 @@ class graphicalDisplay():
             for j in range(0, 10):
                 if (j == 0) or (j == 9):
                     self.grid[j][i] = "-"
-                elif (i == 26) or (i == 40): self.grid[j][i] = "-"
+                elif (i == 26) or (i == 40):
+                    self.grid[j][i] = "-"
         inventory = ["I", "N", "V", "E", "N", "T", "O", "R", "Y"]
         for i in range(29, 38):
             self.grid[1][i] = inventory[i-29]
 
+    def level(self):
+        for i in range(43, 56):
+            for j in range(0, 10):
+                if (j == 0) or (j == 9):
+                    self.grid[j][i] = "-"
+                elif (i == 43) or (i == 55):
+                    self.grid[j][i] = "-"
+        level = ["L", "E", "V", "E", "L"]
+        for i in range(47, 52):
+            self.grid[1][i] = level[i-47]
     def updatePlayerInventory(self):
 
 
@@ -241,9 +255,3 @@ weapons = [["AK47", 25, 50, 50, 70], ["SCAR", 30, 50, 40, 100], ["Uzi",20, 30, 7
 player = mainCharacter("Daniel")
 gui = graphicalDisplay(player)
 gui.printGrid()
-
-while (True):
-    userChoice = input("Test")
-    if userChoice == "x":
-        break
-    gui.moveplayer(userChoice)
