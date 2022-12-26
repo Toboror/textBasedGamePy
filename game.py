@@ -164,12 +164,17 @@ class salesWoman:
         self.STDstatus = False
         self.money = 20
 
+class robber(person):
+    def __init__(self, name):
+        super().__init__(name,randrange(20,100),randrange(40,200),randrange(140,190),100)
+        #Starts as evil, but can trough player choices become good and thus the player will not get robbed?
+        #Otherwise stay evil and tries to rob the player.
+        self.evil = True
+        self.money = 0
+
+class gangster(person):
+    def __init__(self, name):
+        super().__init__(name,randrange(20,50),randrange)
 
 # Considered Dict, chose 2d list with weapon name, damage, range, fire rate and price, feel free to add more
 weapons = [["AK47", 25, 50, 50, 70], ["SCAR", 30, 50, 40, 100], ["Uzi",20, 30, 70, 100]]
-
-player = mainCharacter("Daniel")
-gui = graphicalDisplay(player)
-gui.printGrid()
-gui.menu()
-gui.printGrid()
