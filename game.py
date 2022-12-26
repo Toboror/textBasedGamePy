@@ -19,6 +19,10 @@ import os
 #class UI():
 
 class graphicalDisplay():
+
+    def helloWorld(self):
+        print("Hello world")
+
     def __init__(self, player):
         self.rows, self.cols = 71, 10
         self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
