@@ -19,29 +19,29 @@ def yesNo():
 
 # Standard Yes/No with added third option
 def hookerInteraction():
-    print('1. Yes \n'
-          '2. No \n'
+    print('1. Yes \n' +
+          '2. No \n' +
           '3. Tell her she stinks.')
 
 
 # Standard Yes/No with added third option
 def oldManInteraction():
-    print('1. Yes \n'
-          '2. No \n'
+    print('1. Yes \n' +
+          '2. No \n' +
           '3. Kick the old man and steal his stuff.')
 
 
 # Stranger tell name
 def strangerTellName():
-    print('1. My name is ' + name + '\n'
-                                    '2. My name is Michael\n'
-                                    '3. My name is Fido')
+    print('1. My name is ' + name + '\n' +
+        '2. My name is Michael\n' +
+        '3. My name is Fido')
 
 
 # Casino choose game
 def casinoChooseGame():
-    print('1. Blackjack \n'
-          '2. Roulette \n'
+    print('1. Blackjack \n' +
+          '2. Roulette \n' +
           '3. Dice')
 
 
@@ -50,49 +50,38 @@ while userHealth > -1:
 
     # Choose name
     while True:
-        print('What is your name?')
-        name = input('')
-
-        print('Is your name ' + name + "?")
-        yesNo()
-        answerName = input('')
-
-        if answerName == '1':
-            print('Cool! Now I know your name!')
-            nameRunning = False
-            break
-        elif answerName == '2':
-            print('Then let us start again.')
-            continue
+        while True:
+            name = input("What is your name?" + "\n")
+            print('Is your name ' + name + "?")
+            answer = input("y for yes, n for no")
+            if answer == "y":
+                break
 
     # Check gold amount
     userGold = 100
     print('Do you want to check how much gold you have?')
-    yesNo()
-    answerGold = input('')
+    answerGold = input('Yes or no?' + "\n")
 
-    if answerGold == '1':
+    if answerGold == 'y':
         print('Your amount of gold is: ' + str(userGold))
-    elif answerGold == '2':
-        print('Sure. Let us continue.')
+
+    print('Sure. Let us continue.')
 
     # Secret stash
     print('A random stranger approaches you. The stranger want to know your name. \n'
           'What will you tell the stranger?')
-    strangerTellName()
-    answerTellName = input('')
+    answerTellName = input(strangerTellName())
     fakeName = ''
     if answerTellName == '1':
         print('Nice to meet you, ' + name)
     elif answerTellName == '2':
         fakeName = 'Michael'
         print('Nice to meet you, ' + fakeName)
-    elif answerTellName == '3':
+    else:
         fakeName = 'Fido'
         print('Nice to meet you, ' + fakeName)
     print('The stranger asks if you would like to buy his secret stash. It costs 100 gold.')
-    yesNo()
-    answerSecretStash = input('')
+    answerSecretStash = input(yesNo())
     secretStash = 0
     if answerSecretStash == '1':
         print('He says have a good day.')
@@ -103,8 +92,7 @@ while userHealth > -1:
 
     if secretStash == 1:
         print('Do you want to open the secret stash?')
-        yesNo()
-        answerOpenSS = input('')
+        answerOpenSS = input(yesNo())
         if answerOpenSS == '1':
             print('You decide to open the secret stash. \n'
                   'You receive 200 gold.')
