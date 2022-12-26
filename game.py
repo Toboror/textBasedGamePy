@@ -12,7 +12,7 @@ import os
 
     # Creating graphicaldisplay of game, starting with whitespace, maybe a special symbol in future?
 
-    # test
+    # test 2
 
 #class UI():
 
