@@ -12,10 +12,12 @@ import os
 
     # Creating graphicaldisplay of game, starting with whitespace, maybe a special symbol in future?
 
+    # test 2
+
 #class UI():
 
 class graphicalDisplay():
-        def __init__(self, player):
+    def __init__(self, player):
         self.rows, self.cols = 71, 10
         self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
         self.player = player
