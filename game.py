@@ -18,92 +18,6 @@ import os
 
 #class UI():
 
-class graphicalDisplay():
-
-    def helloWorld(self):
-        print("Hello world")
-
-    def __init__(self, player):
-        self.rows, self.cols = 71, 10
-        self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
-        self.player = player
-        self.grid[self.player.row][self.player.col] = player.playerOnMap()
-        self.previousRow, self.previousCol = 0, 0
-        self.inventory()
-        self.level()
-
-    def printGrid(self):
-        os.system("clear")
-        for i in range(self.cols):
-            print(*self.grid[i])
-
-    def clearGrid(self):
-        self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
-
-    def inventory(self):
-        for i in range(26, 41):
-            for j in range(0, 10):
-                if (j == 0) or (j == 9):
-                    self.grid[j][i] = "-"
-                elif (i == 26) or (i == 40):
-                    self.grid[j][i] = "-"
-        inventory = ["I", "N", "V", "E", "N", "T", "O", "R", "Y"]
-        for i in range(29, 38):
-            self.grid[1][i] = inventory[i-29]
-
-    def level(self):
-        for i in range(43, 56):
-            for j in range(0, 10):
-                if (j == 0) or (j == 9):
-                    self.grid[j][i] = "-"
-                elif (i == 43) or (i == 55):
-                    self.grid[j][i] = "-"
-        level = ["L", "E", "V", "E", "L"]
-        for i in range(47, 52):
-            self.grid[1][i] = level[i-47]
- #   def updatePlayerInventory(self):
-
-    def menu(self):
-        self.clearGrid()
-        for i in range(71//2 - 8, 71//2 + 8):
-            for j in range(0, 10):
-                if (i == 71//2 - 8) or (i == 71//2 + 7):
-                    self.grid[j][i] = "-"
-                elif (j == 0) or (j == 9):
-                    self.grid[j][i] = "-"
-        menu = ["M", "E", "N", "U"]
-        save = ["S", "A", "V", "E"]
-        exit = ["E", "X", "I", "T"]
-        for i in range(33, 37):
-            self.grid[1][i] = menu[i-33]
-            self.grid[3][i] = save[i-33]
-            self.grid[5][i] = exit[i-33]
-        resume = ["R", "E", "S", "U", "M", "E"]
-        for i in range(32, 38):
-            self.grid[2][i] = resume[i-32]
-
-
-
-
-
-
-
-
-
-    def moveplayer(self, userInput):
-        self.clearGrid()
-        movement_location = self.player.movement(userInput)
-        if (movement_location is not False):
-            self.grid[movement_location[0]][movement_location[1]] = self.player.playerOnMap()
-            print(movement_location[0], movement_location[1])
-            self.previousRow, self.previousCol = movement_location[0], movement_location[1]
-        else: self.grid[self.previousRow][self.previousCol] = self.player.playerOnMap()
-
-        self.printGrid()
-
-
-
-
 class weapon:
     def __init__(self, weapon, damage, range, price):
         self.weapon_name = weapon
@@ -186,9 +100,6 @@ class person:
         self.health = health
         self.alive = True
 
-
-
-
 # Pimp with an example of how a class which inherits should look maybe?
 class pimp(person):
     def __init__(self, name):
@@ -244,43 +155,7 @@ class mainCharacter(person):
             if (self.buy(self.weapons[choice].getUpgradeCost())):
                 print("You upgraded", self.weapons[choice], "The new stats are", )
 
-    def playerOnMap(self):
-        return "*"
-
-    def movement(self, userInput):
-        if userInput == "a":
-            if (self.col - 1) > 0:
-                self.col -= 1
-                return self.row, self.col
-            return False
-        elif userInput == "w":
-            if (self.row - 1) > 0:
-                self.row -= 1
-                return self.row, self.col
-            return False
-        elif userInput == "d":
-            if (self.col + 1) < 20: # Avoiding index error, static size on grid
-                self.col += 1
-                return self.row, self.col
-            return False
-        elif userInput == "s":
-            if (self.row + 1) < 9:
-                self.row += 1
-                return self.row, self.col
-            return False
-        else:
-            return self.row, self.col
-
-
-
-    # To add fight mechanic
- #   def fight(self):
-
- def test(se):
-     qewf
-     qde
-
-
+# To add fight mechanic
 
 
 class salesWoman:
