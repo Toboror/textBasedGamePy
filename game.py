@@ -276,6 +276,10 @@ class mainCharacter(person):
     # To add fight mechanic
  #   def fight(self):
 
+ def test(se):
+     qewf
+     qde
+
 
 
 
