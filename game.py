@@ -8,11 +8,14 @@
 
 
 from random import randrange
-
+import os
 
     # Creating graphicaldisplay of game, starting with whitespace, maybe a special symbol in future?
+
+#class UI():
+
 class graphicalDisplay():
-    def __init__(self, player):
+        def __init__(self, player):
         self.rows, self.cols = 71, 10
         self.grid = [[" " for i in range(self.rows)] for j in range(self.cols)]
         self.player = player
@@ -22,6 +25,7 @@ class graphicalDisplay():
         self.level()
 
     def printGrid(self):
+        os.system("clear")
         for i in range(self.cols):
             print(*self.grid[i])
 
@@ -49,11 +53,36 @@ class graphicalDisplay():
         level = ["L", "E", "V", "E", "L"]
         for i in range(47, 52):
             self.grid[1][i] = level[i-47]
-    def updatePlayerInventory(self):
+ #   def updatePlayerInventory(self):
+
+    def menu(self):
+        self.clearGrid()
+        for i in range(71//2 - 8, 71//2 + 8):
+            for j in range(0, 10):
+                if (i == 71//2 - 8) or (i == 71//2 + 7):
+                    self.grid[j][i] = "-"
+                elif (j == 0) or (j == 9):
+                    self.grid[j][i] = "-"
+        menu = ["M", "E", "N", "U"]
+        save = ["S", "A", "V", "E"]
+        exit = ["E", "X", "I", "T"]
+        for i in range(33, 37):
+            self.grid[1][i] = menu[i-33]
+            self.grid[3][i] = save[i-33]
+            self.grid[5][i] = exit[i-33]
+        resume = ["R", "E", "S", "U", "M", "E"]
+        for i in range(32, 38):
+            self.grid[2][i] = resume[i-32]
 
 
 
-     def moveplayer(self, userInput):
+
+
+
+
+
+
+    def moveplayer(self, userInput):
         self.clearGrid()
         movement_location = self.player.movement(userInput)
         if (movement_location is not False):
@@ -254,4 +283,6 @@ weapons = [["AK47", 25, 50, 50, 70], ["SCAR", 30, 50, 40, 100], ["Uzi",20, 30, 7
 
 player = mainCharacter("Daniel")
 gui = graphicalDisplay(player)
+gui.printGrid()
+gui.menu()
 gui.printGrid()
